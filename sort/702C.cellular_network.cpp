@@ -9,6 +9,7 @@ int main()
 	vector<long long int>nets;
 	vector<long long int>distance;
 	long long int tmp;
+	int cnt = 0;
 	//Read input
 	cin>>n>>m;
 	for(int i = 0; i < n; i++)
@@ -21,25 +22,33 @@ int main()
 		cin>>tmp;
 		nets.push_back(tmp);
 	}
-	if(n == m == 1)
+	for(int i = 0; i < m; i++)
 	{
-		cout<<abs(cells[0] - nets[0]);
+		for(int j = 0; j < n; j++)
+		{
+			distance.push_back(abs(nets[i] - cells[j]));
+		}
+	}
+
+	//sort distance
+	sort(distance.begin(), distance.end());
+	if(n == 1)
+	{
+		cout<<distance[0];
+	}
+	else if (m == 1)
+	{
+		cout<<distance[distance.size() - 1];
 	}
 	else
 	{
-		for(int i = 0; i < m; i++)
+		for(int i = 1; i < distance.size();i++)
 		{
-			for(int j = 0; j < n; j++)
-			{
-				distance.push_back(abs(nets[i] - cells[j]));
-			}
+			cout<<distance[i]<<" ";
+			if(distance[i] > distance[i-1])
+				cnt++;
 		}
-
-		//sort distance
-		sort(distance.begin(), distance.end());
-
-		cout<<distance[n];
+		//cout<<cnt;
 	}
-
 	return 0;
 }
